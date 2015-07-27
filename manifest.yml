@@ -1,0 +1,10 @@
+---
+applications:
+- name: pcf-new-relic-drain
+  path: target/new-relic-drain-1.0.0-SNAPSHOT.jar
+  env:
+    JAVA_OPTS: '-javaagent:/app/lib/newrelic-agent-3.16.1.jar -Dnewrelic.config.file=/app/newrelic/newrelic.yml -Dnewrelic.config.log_file_name=STDOUT'
+    NEW_RELIC_LICENSE_KEY: <your_key>
+    OPSMETRICS_HOST: <your_host>
+    OPSMETRICS_USERNAME: <your_username>
+    OPSMETRICS_PASSWORD: <your_password>
