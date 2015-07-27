@@ -9,9 +9,9 @@ This project forwards metrics from the [Ops Metrics][e] component in [Pivotal Cl
 | Key | Description
 | --- | -----------
 | `NEW_RELIC_LICENSE_KEY` | The New Relic license key for your account.
-| `OPSMETRICS_HOST` | The New Relic license key for your account.
-| `OPSMETRICS_USERNAME` | The New Relic license key for your account.
-| `OPSMETRICS_PASSWORD` | The New Relic license key for your account.
+| `OPSMETRICS_HOST` | The ip of your Ops Metrics instance.
+| `OPSMETRICS_USERNAME` | Username for the Ops Metrics instance.
+| `OPSMETRICS_PASSWORD` | Password for the Ops Metrics instance.
 
 ### Optional
 
@@ -33,9 +33,9 @@ All metrics are reported as individual Insights events. Each event consists of a
 Event name: `cf_elastic_runtime_metrics`
 
 All Elastic Runtime events will have the following attributes. The examples below use the Ops Metric JMX metric:
-* Name: org.cloudfoundry:deployment=untitled_dev,job=Router,index=1,ip=10.18.115.254
-* Attribute: router.responses[component=app,dea_index=4,status=5xx]
-* Value: 45.0
+* Name: `org.cloudfoundry:deployment=untitled_dev,job=Router,index=1,ip=10.18.115.254`
+* Attribute: `router.responses[component=app,dea_index=4,status=5xx]`
+* Value: `45.0`
 
 | Name | Description/Example
 | ---- | -----------
@@ -98,6 +98,7 @@ All Datastore events will have the following attributes.
 
 ## Example Insights Queries
 
+```
 SELECT average(value), max(value) from cf_vm_metrics where deployment LIKE 'cf-%' and job LIKE 'router-%' and attribute = 'system.cpu.user' TIMESERIES
 
 SELECT average(value), max(value) from cf_vm_metrics where deployment LIKE 'cf-%' and job LIKE 'dea-%' and attribute = 'system.cpu.user' TIMESERIES
@@ -105,6 +106,7 @@ SELECT average(value), max(value) from cf_vm_metrics where deployment LIKE 'cf-%
 SELECT uniqueCount(ip) as 'VMs' from cf_elastic_runtime_metrics
 
 SELECT sum(value) FROM cf_elastic_runtime_metrics WHERE job = 'Router' and attribute = 'router.requests_per_sec' TIMESERIES AUTO
+```
 
 If you have multiple CF environments denoted by `CF_INSTANCE_NAME`, you can target metrics of a specific environment explictly by using the 
 `platform_instance` attribute or by using facets (e.g. `FACET platform_instance`)
