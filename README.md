@@ -111,6 +111,10 @@ SELECT sum(value) FROM cf_elastic_runtime_metrics WHERE job = 'Router' and attri
 If you have multiple CF environments denoted by `CF_INSTANCE_NAME`, you can target metrics of a specific environment explictly by using the 
 `platform_instance` attribute or by using facets (e.g. `FACET platform_instance`)
 
+## Compatibility
+
+This project has been tested against PCF 1.4 and 1.5.
+
 ## Deployment
 
 In order to automate the deployment process as much as possible, the project contains a Cloud Foundry [manifest][b]. Update the manifest as required for your environment.  To deploy run the following commands:
